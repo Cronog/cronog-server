@@ -15,6 +15,6 @@ app.use(task);
 app.use(color);
 app.use(auth);
 
-app.listen(5001, () => {
-    console.log("Rodando na porta 5001");
+app.listen(process.env.PORT || 5001, () => {
+    console.log(`Rodando na porta ${process.env.PORT || 5001}`);
 })
