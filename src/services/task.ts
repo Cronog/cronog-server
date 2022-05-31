@@ -17,7 +17,8 @@ export const saveTask = async (task: Task, file: Blob) => {
     await taskRespository.saveTask(task);
 }
 
-export const updateTask = async (id: string, task: Task) => {
+export const updateTask = async (id: string, task: Task, file: Blob) => {
+    task.img = fs.readFileSync(`uploads/${file["filename"]}`)
     await taskRespository.updateTask(task, id);
 }
 

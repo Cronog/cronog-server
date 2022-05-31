@@ -3,6 +3,7 @@ import express from "express";
 import cronog from "./src/routes/cronog";
 import task from "./src/routes/task";
 import auth from "./src/routes/auth";
+import color from "./src/routes/color";
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(cors());
 
 app.use(cronog);
 app.use(task);
+app.use(color);
 app.use(auth);
 
 app.listen(5001, () => {

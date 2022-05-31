@@ -9,7 +9,7 @@ const upload = multer({ dest: 'uploads/' })
 
 const router = express.Router()
 
-router.get('/task/:cronogId/:id', async (req, res) => {
+router.get('/task/:cronogId/:id', requireAuth, async (req, res) => {
     let response: Response;
     try {
         const data = await taskService.getTaskById(req.params.id);
@@ -74,7 +74,7 @@ router.post('/task', requireAuth, upload.single('img'), async (req, res) => {
 router.put('/task/:cronogId/:id', requireAuth, upload.single('img'), async (req, res) => {
     let response: Response;
     try {
-        await taskService.updateTask(req.params.id, req.body as Task);
+        await taskService.updateTask(req.params.id, JSON.parse(req.body.data) as Task, req["file"]);
         response = {
             success: true,
             status: 200,

@@ -3,7 +3,6 @@ import { Request } from "express";
 import * as cronogRespository from "../repositories/cronog";
 import { Cronog } from "../types/cronog";
 import { Response } from "../types/response";
-import { Task } from "../types/task";
 import formatMessageError from "./error";
 import { generateNotificationId } from "./notification";
 import { deleteTaskByCronogId, getTaskByCronogId } from "./task";
