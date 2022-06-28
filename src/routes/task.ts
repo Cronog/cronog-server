@@ -50,10 +50,10 @@ router.get('/task/:cronogId', requireAuth, async (req, res) => {
     res.send(response);
 });
 
-router.post('/task', requireAuth, upload.single('img'), async (req, res) => {
+router.post('/task', requireAuth, upload.array('img'), async (req, res) => {
     let response: Response;
     try {
-        await taskService.saveTask(JSON.parse(req.body.data) as Task, req["file"]);
+        await taskService.saveTask(JSON.parse(req.body.data) as Task, req["files"]);
         response = {
             success: true,
             status: 200,
@@ -74,7 +74,7 @@ router.post('/task', requireAuth, upload.single('img'), async (req, res) => {
 router.put('/task/:cronogId/:id', requireAuth, upload.single('img'), async (req, res) => {
     let response: Response;
     try {
-        await taskService.updateTask(req.params.id, JSON.parse(req.body.data) as Task, req["file"]);
+        await taskService.updateTask(req.params.id, JSON.parse(req.body.data) as Task, req["files"]);
         response = {
             success: true,
             status: 200,

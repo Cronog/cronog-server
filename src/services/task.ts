@@ -12,13 +12,13 @@ export const getTaskByCronogId = async (cronogId: string) : Promise<Task[]> => {
     return response.sort((prev, next) => prev.order - next.order);
 }
 
-export const saveTask = async (task: Task, file: Blob) => {
-    task.img = fs.readFileSync(`uploads/${file["filename"]}`)
+export const saveTask = async (task: Task, files: Blob[]) => {
+    task.imgs = files.map(file => fs.readFileSync(`uploads/${file["filename"]}`))
     await taskRespository.saveTask(task);
 }
 
-export const updateTask = async (id: string, task: Task, file: Blob) => {
-    task.img = fs.readFileSync(`uploads/${file["filename"]}`)
+export const updateTask = async (id: string, task: Task, files: Blob[]) => {
+    task.imgs = files.map(file => fs.readFileSync(`uploads/${file["filename"]}`))
     await taskRespository.updateTask(task, id);
 }
 
