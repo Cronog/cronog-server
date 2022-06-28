@@ -7,7 +7,7 @@ export const formatMessageError = (code : string) : string => {
         case "auth/user-not-found":
             return "Email não encontrado"
         default:
-            return code;
+            return "Erro inesperado";
     }
 }
 
