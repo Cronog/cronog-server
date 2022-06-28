@@ -71,7 +71,7 @@ router.post('/task', requireAuth, upload.array('img'), async (req, res) => {
     res.send(response);
 });
 
-router.put('/task/:cronogId/:id', requireAuth, upload.single('img'), async (req, res) => {
+router.put('/task/:cronogId/:id', requireAuth, upload.array('img'), async (req, res) => {
     let response: Response;
     try {
         await taskService.updateTask(req.params.id, JSON.parse(req.body.data) as Task, req["files"]);
