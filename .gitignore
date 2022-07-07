@@ -1,5 +1,4 @@
 node_modules
 Procfile
 .env
-.env-example
 /uploads
