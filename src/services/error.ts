@@ -6,6 +6,8 @@ export const formatMessageError = (code : string) : string => {
             return "Senha incorreta"
         case "auth/user-not-found":
             return "Email não encontrado"
+        case "auth/weak-password":
+            return "Senha muito fraca"
         default:
             return "Erro inesperado";
     }
