@@ -1,5 +1,5 @@
 import express from "express";
-import requireAuth from "../middleware/authMiddleware";
+import requireAuth from "../middleware/auth";
 import * as taskService from "../services/task";
 import multer from  'multer';
 import { Task } from "../types/task";

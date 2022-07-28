@@ -1,5 +1,4 @@
 import express from "express";
-import requireAuth from "../middleware/authMiddleware";
 import * as colorService from "../services/color";
 import formatMessageError from "../services/error";
 import { Response } from "../types/response";

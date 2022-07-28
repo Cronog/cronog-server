@@ -2,7 +2,7 @@ import express from "express";
 import { Response } from "../types/response";
 import { connectFirebaseAuth } from "../connections/firebase";
 import * as registerService from "../services/auth";
-import requireAuth from "../middleware/authMiddleware";
+import requireAuth from "../middleware/auth";
 
 const router = express.Router()
 
