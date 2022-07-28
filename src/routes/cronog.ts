@@ -1,5 +1,5 @@
 import express from "express";
-import requireAuth from "../middleware/authMiddleware";
+import requireAuth from "../middleware/auth";
 import * as cronogService from "../services/cronog";
 
 const router = express.Router()

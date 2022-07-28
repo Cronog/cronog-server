@@ -9,7 +9,9 @@ import color from "./src/routes/color";
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "*"
+}));
 
 app.use(cronog);
 app.use(task);
