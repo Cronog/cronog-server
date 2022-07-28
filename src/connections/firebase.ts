@@ -12,7 +12,7 @@ export const connectFirebaseDb = () : firebaseadmin.firestore.Firestore => {
                 type: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_TYPE`],
                 project_id: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_PROJECT_ID`],
                 private_key_id: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_PRIVATE_KEY_ID`],
-                private_key: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_PRIVATE_KEY`],
+                private_key: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_PRIVATE_KEY`].replace(/\\n/g, '\n'),
                 client_email: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_CLIENT_EMAIL`],
                 client_id: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_CLIENT_ID`],
                 auth_uri: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_AUTH_URI`],
