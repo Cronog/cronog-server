@@ -30,4 +30,9 @@ router.get("/auth/authenticatedUser", requireAuth, async (req, res) => {
     } as Response);
 })
 
+router.get("/auth/refresh/:refreshToken", async (req, res) => {
+    const response = await registerService.renewAccessToken(req.params.refreshToken)
+    res.send(response);
+})
+
 export default router;

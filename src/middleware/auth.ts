@@ -1,4 +1,3 @@
-import { verify } from "jsonwebtoken";
 import { Response } from "../types/response";
 import firebaseadmin from "firebase-admin";
 
@@ -11,13 +10,14 @@ export const requireAuth = async (req, res, next) => {
             next()
         } catch (error) {
             res.send({
-                status: 509,
+                status: 401,
+                message: "token expirado",
                 success: false
             } as Response)
         }
     }else{
         res.send({
-            status: 509,
+            status: 403,
             success: false
         } as Response)
     }     
