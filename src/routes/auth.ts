@@ -26,6 +26,7 @@ router.get('/auth/recovery/:email', async (req, res, next) => {
 router.get("/auth/authenticatedUser", requireAuth, async (req, res) => {
     res.send({
         success: true,
+        data: true,
         status: 200
     } as Response);
 })
