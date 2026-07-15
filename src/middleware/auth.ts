@@ -1,12 +1,12 @@
+import { getAuth } from "firebase-admin/auth";
 import { Response } from "../types/response";
-import firebaseadmin from "firebase-admin";
 
 export const requireAuth = async (req, res, next) => {
     const token = req.headers["token-auth"];
 
     if(token){
         try {
-            await firebaseadmin.auth().verifyIdToken(token)
+            await getAuth().verifyIdToken(token)
             next()
         } catch (error) {
             res.send({
