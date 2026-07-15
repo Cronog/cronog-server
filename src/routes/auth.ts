@@ -8,6 +8,10 @@ const router = express.Router()
 
 const app = connectFirebaseAuth();
 
+router.get('/', async (req, res, next) => {
+    res.send("rodando");
+})
+
 router.post('/auth/singin', async (req, res, next) => {
     const response = await registerService.singin(req);
     res.send(response);
