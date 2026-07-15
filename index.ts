@@ -18,6 +18,9 @@ app.use(task);
 app.use(color);
 app.use(auth);
 
-app.listen(process.env.PORT || 5001, () => {
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Rodando na porta ${process.env.PORT || 5001}`);
-})
+});
+
+export default app;
