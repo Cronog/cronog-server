@@ -1,42 +1,51 @@
-import firebaseadmin from "firebase-admin";
-import { FirebaseApp, initializeApp } from 'firebase/app';
+// 1. Importações do SDK de ADMIN (para o banco Firestore)
+import { initializeApp as initializeAdminApp, cert, getApps as getAdminApps, getApp as getAdminApp } from "firebase-admin/app";
+import { getFirestore, Firestore } from "firebase-admin/firestore";
 
-let db : firebaseadmin.firestore.Firestore
+// 2. Importações do SDK de CLIENT (para o fluxo de login do Auth no backend)
+import { initializeApp as initializeClientApp, getApps as getClientApps, getApp as getClientApp, FirebaseApp } from 'firebase/app';
 
-export const connectFirebaseDb = () : firebaseadmin.firestore.Firestore => {
-    
-    if(!db){
-        firebaseadmin.initializeApp({
-            credential: firebaseadmin.credential.cert({
-                api_key : process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_API_KEY`],
-                type: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_TYPE`],
-                project_id: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_PROJECT_ID`],
-                private_key_id: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_PRIVATE_KEY_ID`],
-                private_key: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_PRIVATE_KEY`].replace(/\\n/g, '\n'),
-                client_email: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_CLIENT_EMAIL`],
-                client_id: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_CLIENT_ID`],
-                auth_uri: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_AUTH_URI`],
-                token_uri: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_TOKEN_URI`],
-                auth_provider_x509_cert_url: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_AUTH_PROVIDER_X509_CERT_URL`],
-                client_x509_cert_url: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_DB_CLIENT_X509_CERT_URL`]
-            } as any)
-        });
+let db: Firestore;
 
-        db = firebaseadmin.firestore();
-    }
-    return db;
-}
+/**
+ * Inicializa o Firebase ADMIN SDK e retorna a instância do Firestore.
+ */
+export const connectFirebaseDb = (): Firestore => {
+  const env = process.env.NODE_ENVIRONMENT || "";
 
-export const connectFirebaseAuth = () : FirebaseApp => {
-    
-    const app = initializeApp({
-        apiKey: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_API_KEY`],
-        authDomain: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_AUTH_DOMAIN`],
-        projectId: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_PROJECT_ID`],
-        storageBucket: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_STORAGE_BUCKET`],
-        messagingSenderId: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_MESSAGING_SENDER_ID`],
-        appId: process.env[`FIREBASE${process.env.NODE_ENVIRONMENT}_APP_ID`]
-    });
+  if (!db) {
+    const adminApp = getAdminApps().length === 0 
+      ? initializeAdminApp({
+          credential: cert({
+            projectId: process.env[`FIREBASE${env}_PROJECT_ID`],
+            privateKey: process.env[`FIREBASE${env}_DB_PRIVATE_KEY`]?.replace(/\\n/g, '\n'),
+            clientEmail: process.env[`FIREBASE${env}_DB_CLIENT_EMAIL`],
+          } as any)
+        })
+      : getAdminApp();
 
-    return app
-}
+    db = getFirestore(adminApp);
+  }
+  return db;
+};
+
+/**
+ * Inicializa o Firebase CLIENT SDK e retorna o app compatível com 'firebase/auth'.
+ */
+export const connectFirebaseAuth = (): FirebaseApp => {
+  const env = process.env.NODE_ENVIRONMENT || "";
+
+  // Evita o erro de inicializar o app de cliente mais de uma vez
+  const clientApp = getClientApps().length === 0
+    ? initializeClientApp({
+        apiKey: process.env[`FIREBASE${env}_API_KEY`],
+        authDomain: process.env[`FIREBASE${env}_AUTH_DOMAIN`],
+        projectId: process.env[`FIREBASE${env}_PROJECT_ID`],
+        storageBucket: process.env[`FIREBASE${env}_STORAGE_BUCKET`],
+        messagingSenderId: process.env[`FIREBASE${env}_MESSAGING_SENDER_ID`],
+        appId: process.env[`FIREBASE${env}_APP_ID`]
+      })
+    : getClientApp();
+
+  return clientApp;
+};

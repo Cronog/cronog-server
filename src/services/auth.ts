@@ -53,7 +53,7 @@ export const sendEmailResetPassword = async (email : string) : Promise<Response>
         status: 200,
         data: {},
         success: true,
-        message: "Se você estiver cadastrado, chegará um email de recuperção na sua caixa de entrada"
+        message: "Verifique a sua caixa de email."
     } as Response)
 }
 
