@@ -1,9 +1,9 @@
-import express from "express";
+import { Router } from "express";
 import * as colorService from "../services/color";
 import formatMessageError from "../services/error";
 import { Response } from "../types/response";
 
-const router = express.Router()
+const router = Router()
 
 router.get('/color', async (req, res) => {
     let response: Response;

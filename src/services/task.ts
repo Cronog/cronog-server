@@ -1,6 +1,6 @@
 import * as taskRespository from "../repositories/task";
 import { Task } from "../types/task";
-import fs from "fs";
+import { readFileSync } from "fs";
 
 export const getTaskById = async (id : string) : Promise<Task> => {
     let response = await taskRespository.getTaskById(id);
@@ -13,12 +13,12 @@ export const getTaskByCronogId = async (cronogId: string) : Promise<Task[]> => {
 }
 
 export const saveTask = async (task: Task, files: Blob[]) => {
-    task.imgs = files.map(file => fs.readFileSync(`uploads/${file["filename"]}`))
+    task.imgs = files.map(file => readFileSync(`uploads/${file["filename"]}`))
     await taskRespository.saveTask(task);
 }
 
 export const updateTask = async (id: string, task: Task, files: Blob[]) => {
-    task.imgs = files.map(file => fs.readFileSync(`uploads/${file["filename"]}`));
+    task.imgs = files.map(file => readFileSync(`uploads/${file["filename"]}`));
     await taskRespository.updateTask(task, id);
 }
 

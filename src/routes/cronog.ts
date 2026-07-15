@@ -1,8 +1,8 @@
-import express from "express";
+import { Router } from "express";
 import requireAuth from "../middleware/auth";
 import * as cronogService from "../services/cronog";
 
-const router = express.Router()
+const router = Router()
 
 router.get('/cronog/:userId/:id', async (req, res) => {
     const response = await cronogService.getCronogById(req);

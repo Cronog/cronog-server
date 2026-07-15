@@ -1,10 +1,10 @@
 require('dotenv').config();
 import cors from "cors";
 import express from "express";
-import cronog from "./src/routes/cronog";
-import task from "./src/routes/task";
-import auth from "./src/routes/auth";
-import color from "./src/routes/color";
+import cronog from "./routes/cronog";
+import task from "./routes/task";
+import auth from "./routes/auth";
+import color from "./routes/color";
 
 const app = express();
 

@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import requireAuth from "../middleware/auth";
 import * as taskService from "../services/task";
 import multer from  'multer';
@@ -7,7 +7,7 @@ import formatMessageError from "../services/error";
 import { Response } from "../types/response";
 const upload = multer({ dest: 'uploads/' })
 
-const router = express.Router()
+const router = Router()
 
 router.get('/task/:cronogId/:id', requireAuth, async (req, res) => {
     let response: Response;

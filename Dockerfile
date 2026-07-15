@@ -16,4 +16,4 @@ RUN npm install --only=production
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 5001
-CMD ["node", "dist/api/index.js"]
+CMD ["node", "dist/index.js"]
