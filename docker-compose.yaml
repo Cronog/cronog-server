@@ -6,9 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: meu-cronog-server
-    volumes:
-      - ./server.crt:/app/server.crt
-      - ./server.key:/app/server.key
     ports:
       - "5001:5001"
     restart: always
